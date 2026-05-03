@@ -70,7 +70,7 @@ Jika ID tidak ditemukan:
 ```json
 {
   "status": "error",
-  "message": "Item dengan ID tidak ditemukan"
+  "message": "Item dengan ID x tidak ditemukan"
 }
 ```
 

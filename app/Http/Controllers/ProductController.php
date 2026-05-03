@@ -26,10 +26,50 @@ class ProductController extends Controller
         [
             "id" => 3,
             "name" => "Babi Panggang Karo",
-            "price" => 70000,
+            "price" => 75000,
             "stock" => 15,
             "category" => "Makanan",
             "origin" => "Karo"
+        ],
+        [
+            "id" => 4,
+            "name" => "Arsik Ikan Mas",
+            "price" => 60000,
+            "stock" => 10,
+            "category" => "Makanan",
+            "origin" => "Tapanuli"
+        ],
+        [
+            "id" => 5,
+            "name" => "Ulos Sibolang",
+            "price" => 1200000,
+            "stock" => 7,
+            "category" => "Kain Tradisional",
+            "origin" => "Samosir"
+        ],
+        [
+            "id" => 6,
+            "name" => "Dali Ni Horbo",
+            "price" => 40000,
+            "stock" => 25,
+            "category" => "Makanan",
+            "origin" => "Toba"
+        ],
+        [
+            "id" => 7,
+            "name" => "Gondang Batak (Alat Musik)",
+            "price" => 2000000,
+            "stock" => 3,
+            "category" => "Alat Musik",
+            "origin" => "Sumatera Utara"
+        ],
+        [
+            "id" => 8,
+            "name" => "Ulos Mangiring",
+            "price" => 900000,
+            "stock" => 8,
+            "category" => "Kain Tradisional",
+            "origin" => "Tapanuli"
         ]
     ];
     public function index()
@@ -82,28 +122,13 @@ class ProductController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $request->validate([
-            "name" => "required|string",
-            "price" => "required|numeric",
-            "stock" => "required|integer",
-            "category" => "required|string",
-            "origin" => "required|string"
-        ]);
-
         foreach ($this->products as &$product) {
             if ($product['id'] == $id) {
-                $product = [
-                    "id" => $id,
-                    "name" => $request->name,
-                    "price" => $request->price,
-                    "stock" => $request->stock,
-                    "category" => $request->category,
-                    "origin" => $request->origin
-                ];
+                $product = array_merge($product, $request->all());
 
                 return response()->json([
                     "status" => "success",
-                    "message" => "Produk berhasil diperbarui",
+                    "message" => "Produk berhasil diupdate",
                     "data" => $product
                 ]);
             }
@@ -118,22 +143,7 @@ class ProductController extends Controller
     {
         foreach ($this->products as &$product) {
             if ($product['id'] == $id) {
-
-                if ($request->has('name')) {
-                    $product['name'] = $request->name;
-                }
-                if ($request->has('price')) {
-                    $product['price'] = $request->price;
-                }
-                if ($request->has('stock')) {
-                    $product['stock'] = $request->stock;
-                }
-                if ($request->has('category')) {
-                    $product['category'] = $request->category;
-                }
-                if ($request->has('origin')) {
-                    $product['origin'] = $request->origin;
-                }
+                $product = array_merge($product, $request->all());
 
                 return response()->json([
                     "status" => "success",
